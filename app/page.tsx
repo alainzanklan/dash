@@ -14,36 +14,36 @@ interface HomeProps {
 // ─── Section config ───────────────────────────────────────────────────────────
 
 const sections = [
-  {
-    title: 'Latest Products',
-    subtitle: 'Fresh arrivals just for you',
-    category: null,
-    limit: 6,
-  },
+  // {
+  //   title: 'Latest Products',
+  //   subtitle: 'Fresh arrivals just for you',
+  //   category: null,
+  //   limit: 6,
+  // },
   {
     title: 'Top Selling',
     subtitle: 'Most loved by our customers',
     category: null,
-    limit: 6,
+    limit: 22,
   },
-  {
-    title: 'TVs',
-    subtitle: 'Big screens, better experience',
-    category: 'TV',
-    limit: 6,
-  },
-  {
-    title: 'Fridges & Freezers',
-    subtitle: 'Keep it cool at home',
-    category: 'Fridge',
-    limit: 6,
-  },
-  {
-    title: 'Laptop Bags',
-    subtitle: 'Carry in style',
-    category: 'Laptop Bag',
-    limit: 6,
-  },
+  // {
+  //   title: 'Casuals',
+  //   subtitle: 'Big screens, better experience',
+  //   category: 'Casual',
+  //   limit: 6,
+  // },
+  // {
+  //   title: 'Corporates',
+  //   subtitle: 'Keep it cool at home',
+  //   category: 'Corporate',
+  //   limit: 6,
+  // },
+  // {
+  //   title: 'Social Events',
+  //   subtitle: 'Carry in style',
+  //   category: 'Laptop Bag',
+  //   limit: 6,
+  // },
 ];
 
 // ─── Section banner ───────────────────────────────────────────────────────────
