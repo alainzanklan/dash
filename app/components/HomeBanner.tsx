@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const HomeBanner = () => {
   return (
-    <div className='relative bg-gradient-to-r from-stone-800 to-stone-950 mb-4 shrink-0'>
+    <div className='relative bg-gradient-to-r from-stone-800 to-stone-950 mb-4'>
       <div className='flex flex-row items-center justify-between px-4 py-8 md:px-20 md:py-26'>
         {/* Text */}
         <div className='text-left flex-1'>
@@ -22,7 +22,7 @@ const HomeBanner = () => {
         </div>
 
         {/* Image */}
-        <div className='relative w-36 h-36 sm:w-40 sm:h-40 md:w-96 md:h-96 flex-shrink-0'>
+        <div className='relative w-28 h-28 sm:w-40 sm:h-40 md:w-96 md:h-96 flex-shrink-0'>
           <Image
             src='/user2.png'
             fill
