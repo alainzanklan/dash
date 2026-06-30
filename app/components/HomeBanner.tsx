@@ -5,7 +5,7 @@ const HomeBanner = () => {
     <div className='relative w-full overflow-hidden mb-4 min-h-[400px] md:min-h-[500px] flex items-center'>
       {/* Background Image */}
       <Image
-        src='/user2.png'
+        src='/user2.jpeg'
         fill
         priority
         alt='Made in Ghana fashion background'
