@@ -1,6 +1,7 @@
 import React from 'react';
 
 const page = () => {
+  return <div>Return Policy</div>;
   //   return (
   //     <div className=' py-12 px-4 md:p-20'>
   //     <h1 className='font-bold text-2xl mb-12 text-center'>Return and Refund Policy</h1>

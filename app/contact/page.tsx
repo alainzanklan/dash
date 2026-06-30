@@ -13,6 +13,7 @@ import { FaLocationDot, FaMessage } from 'react-icons/fa6';
 import { FaPhone } from 'react-icons/fa';
 
 const ContactUsPage: React.FC = () => {
+  return <div> Contact Page</div>;
   //   const [isLoading, setIsLoading] = useState(false);
   //     const {
   //       register,

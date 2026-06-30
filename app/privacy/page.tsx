@@ -2,6 +2,8 @@ import React from 'react';
 
 const PrivacyPolicyPage = () => {
   //   return (
+
+  <div> Privacy Page</div>;
   // //      <div
   // // // className='py-12 px-4 md:p-20'>
   // // //         <h1 className='font-bold text-2xl text-center mb-12'>Privacy Policy</h1>
