@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const HomeBanner = () => {
   return (
-    <div className='relative w-full overflow-hidden mb-4 min-h-[400px] md:min-h-[500px] flex items-center'>
+    <div className='relative w-full overflow-hidden mb-4 min-h-[400px] md:min-h-[500px] flex items-center rounded-xl'>
       {/* Background Image */}
       <Image
         src='/user2.jpeg'
@@ -29,7 +29,7 @@ const HomeBanner = () => {
             Contemporary Ghanaian womenswear designed to stand out.
           </p>
           <p className='text-base sm:text-xl md:text-3xl font-bold text-amber-400 uppercase tracking-wider cursor-pointer hover:text-amber-300 transition-colors'>
-            Shop the New Collection &rarr;
+            Shop the New Collection
           </p>
         </div>
       </div>
