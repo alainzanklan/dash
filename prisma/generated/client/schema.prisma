@@ -1,0 +1,151 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model User {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?        @unique
+  emailVerified  DateTime?
+  savedAddresses SavedAddress[]
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  role           Role           @default(USER)
+  accounts       Account[]
+  order          Order[]
+  reviews        Review[]
+}
+
+model Product {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  description      String
+  price            Float
+  brand            String
+  category         String
+  inStock          Boolean
+  images           Image[]
+  additionalImages String[]
+  reviews          Review[]
+  partnerId        String?  @db.ObjectId
+  partner          Partner? @relation(fields: [partnerId], references: [id])
+}
+
+model Review {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  productId   String   @db.ObjectId
+  rating      Int
+  comment     String
+  createdDate DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id])
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String            @db.ObjectId
+  amount          Float
+  currency        String
+  status          String
+  deliveryStatus  String?
+  createDate      DateTime          @default(now())
+  paymentIntentId String?
+  products        CartProductType[]
+  address         Address?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+type CartProductType {
+  id          String
+  name        String
+  description String
+  category    String
+  brand       String
+  selectedImg Image
+  quantity    Int
+  price       Float
+}
+
+type Image {
+  color     String
+  colorCode String
+  image     String
+}
+
+type Address {
+  city        String
+  country     String
+  phone       String
+  line1       String
+  line2       String
+  Postal_code String
+  state       String
+}
+
+model SavedAddress {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  label     String // e.g. "Home", "Office"
+  name      String
+  phone     String
+  line1     String
+  line2     String?
+  city      String
+  state     String   @default("Greater Accra")
+  country   String   @default("Ghana")
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Partner {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  slug        String   @unique
+  logo        String?
+  description String?
+  phone       String?
+  whatsapp    String?
+  email       String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  products Product[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
