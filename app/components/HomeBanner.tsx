@@ -9,14 +9,14 @@ const HomeBanner = () => {
           <span className='hidden text-xs sm:text-sm font-medium tracking-widest uppercase text-amber-400 mb-2'>
             Proudly Made in Ghana
           </span>
-          <h1 className='text-xl sm:text-4xl md:text-6xl font-bold text-white mb-2 md:mb-4 leading-tight'>
+          <h1 className='text-xl sm:text-3xl md:text-6xl font-bold text-white mb-2 md:mb-4 leading-tight'>
             Timeless Elegance,
             <br className='hidden sm:block' /> Crafted with Grace
           </h1>
           <p className='text-xs sm:text-base md:text-xl text-stone-300 mb-3 md:mb-5 max-w-md'>
             Contemporary Ghanaian womenswear designed to stand out.
           </p>
-          <p className='text-base sm:text-2xl md:text-4xl font-bold text-amber-400'>
+          <p className='text-base sm:text-xl md:text-4xl font-bold text-amber-400'>
             Shop the New Collection
           </p>
         </div>
