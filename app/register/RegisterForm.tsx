@@ -81,7 +81,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
 
   return (
     <>
-      <Heading title='Sign up for Emart' />
+      <Heading title='Sign up for Dash' />
       <Button
         outline
         label={isGoogleLoading ? 'Redirecting...' : 'Continue with Google'}

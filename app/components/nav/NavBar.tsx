@@ -18,12 +18,12 @@ const NavBar = () => {
           <div className='flex items-center justify-between gap-3 md:gap-0'>
             <a href='/'>
               <Image
-                src='/user1.jpg'
+                src='/user1.png'
                 alt='dash fashion logo'
-                width={110}
-                height={60}
+                width={80}
+                height={40}
                 priority
-                style={{ width: '110px', height: '60px', objectFit: 'contain' }}
+                style={{ width: '80px', height: '40px', objectFit: 'contain' }}
               />
             </a>
             <div className='hidden md:block'>

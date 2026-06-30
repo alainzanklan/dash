@@ -27,37 +27,31 @@ export const categories: CategoryType[] = [
   {
     label: 'All',
     icon: MdStorefront,
-    image:
-      'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=200&h=200&fit=crop',
+    image: '/all.jpeg',
   },
   {
     label: 'Milestones',
     icon: PiDressThin,
-    image:
-      'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=200&h=200&fit=crop',
+    image: '/milestone.jpeg',
   },
   {
     label: 'Social Events',
     icon: LiaTshirtSolid,
-    image:
-      'https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=200&h=200&fit=crop',
+    image: '/social.jpeg',
   },
   {
     label: 'Casuals',
     icon: GiTrousers,
-    image:
-      'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=200&h=200&fit=crop',
+    image: '/casual.jpeg',
   },
   {
     label: 'Corporates',
     icon: GiSkirt,
-    image:
-      'https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=200&h=200&fit=crop',
+    image: '/corporate.jpeg',
   },
   {
     label: 'Daily Accessories',
     icon: TbShirt,
-    image:
-      'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=200&h=200&fit=crop',
+    image: '/access.jpeg',
   },
 ];
