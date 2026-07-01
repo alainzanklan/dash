@@ -44,7 +44,7 @@ const Category: React.FC<CategoryProps> = ({ label, image, selected }) => {
     >
       {/* Square image tile — SHEIN-style with soft rounded corners */}
       <div
-        className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden transition-all duration-200 shadow-inner ${
+        className={`relative w-12 h-12 sm:w-20 sm:h-20 rounded-2xl overflow-hidden transition-all duration-200 ${
           selected
             ? 'ring-2 ring-zinc-900 ring-offset-2'
             : 'ring-1 ring-zinc-200 group-hover:ring-zinc-400'
