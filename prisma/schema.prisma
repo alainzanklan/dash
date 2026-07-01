@@ -53,7 +53,6 @@ model Product{
     inStock Boolean
     images Image[]
     additionalImages String[] 
-    sizes String[]?
     reviews Review[]
     partnerId   String?   @db.ObjectId 
     partner     Partner?  @relation(fields: [partnerId], references: [id])
@@ -94,7 +93,6 @@ type CartProductType {
     category    String
     brand       String
     selectedImg Image
-    selectedSize String?
     quantity    Int
     price       Float
 }
