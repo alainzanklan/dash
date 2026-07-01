@@ -1,78 +1,154 @@
-import React from 'react';
+import Container from '../components/Container';
 
-const page = () => {
-  return <div>Return Policy</div>;
-  //   return (
-  //     <div className=' py-12 px-4 md:p-20'>
-  //     <h1 className='font-bold text-2xl mb-12 text-center'>Return and Refund Policy</h1>
-  // <p className='my-2'>Last updated: July 21, 2025</p>
-  // <p className='font-semibold italic my-2'> Thank you for shopping at Emart GH.</p>
-  // <p>If, for any reason, You are not completely satisfied with a purchase We invite You to review our policy on refunds and returns. This Return and Refund Policy has been created with the help of the <a href="https://www.termsfeed.com/return-refund-policy-generator/" target="_blank">Return and Refund Policy Generator</a>.</p>
-  // <p>The following terms are applicable for any products that You purchased with Us.</p>
-  // <h2 className='font-bold text-xl my-2'>Interpretation and Definitions</h2>
-  // <h3 className='font-bold mb-2'>Interpretation</h3>
-  // <p>The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.</p>
-  // <h3 className='font-bold my-2'>Definitions</h3>
-  // <p>For the purposes of this Return and Refund Policy:</p>
-  // <ul className='flex flex-col gap-2 my-2'>
-  // <li>
-  // <p><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Emart GH.</p>
-  // </li>
-  // <li>
-  // <p><strong>Goods</strong> refer to the items offered for sale on the Service.</p>
-  // </li>
-  // <li>
-  // <p><strong>Orders</strong> mean a request by You to purchase Goods from Us.</p>
-  // </li>
-  // <li>
-  // <p><strong>Service</strong> refers to the Website.</p>
-  // </li>
-  // <li>
-  // <p><strong>Website</strong> refers to Emart GH, accessible from <a href="emartgh.com" rel="external nofollow noopener" target="_blank">emartgh.com</a></p>
-  // </li>
-  // <li>
-  // <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
-  // </li>
-  // </ul>
-  // <h2 className='font-bold text-xl my-2'>Your Order Cancellation Rights</h2>
-  // <p>You are entitled to cancel Your Order within 14 days without giving any reason for doing so.</p>
-  // <p>The deadline for cancelling an Order is 14 days from the date on which You received the Goods or on which a third party you have appointed, who is not the carrier, takes possession of the product delivered.</p>
-  // <p>In order to exercise Your right of cancellation, You must inform Us of your decision by means of a clear statement. You can inform us of your decision by:</p>
-  // <ul className='flex flex-col gap-2 my-2 font-bold'>
-  // <li>By email: info@emartgh.com</li>
-  // </ul>
-  // <p>We will reimburse You no later than 14 days from the day on which We receive the returned Goods. We will use the same means of payment as You used for the Order, and You will not incur any fees for such reimbursement.</p>
-  // <h2 className='font-bold text-xl my-2'>Conditions for Returns</h2>
-  // <p>In order for the Goods to be eligible for a return, please make sure that:</p>
-  // <ul className='flex flex-col gap-2 my-2'>
-  // <li>The Goods were purchased in the last 14 days</li>
-  // <li>The Goods are in the original packaging</li>
-  // <li>Product isn't used or damaged </li>
-  // <li>Product must have the receipt or proof of purchase </li>
-  // </ul>
-  // <p>The following Goods cannot be returned:</p>
-  // <ul className='flex flex-col gap-2 my-2'>
-  // <li>The supply of Goods made to Your specifications or clearly personalized.</li>
-  // <li>The supply of Goods which according to their nature are not suitable to be returned, deteriorate rapidly or where the date of expiry is over.</li>
-  // <li>The supply of Goods which are not suitable for return due to health protection or hygiene reasons and were unsealed after delivery.</li>
-  // <li>The supply of Goods which are, after delivery, according to their nature, inseparably mixed with other items.</li>
-  // </ul>
-  // <p>We reserve the right to refuse returns of any merchandise that does not meet the above return conditions in our sole discretion.</p>
-  // <p>Only regular priced Goods may be refunded. Unfortunately, Goods on sale cannot be refunded. This exclusion may not apply to You if it is not permitted by applicable law.</p>
-  // <h2 className='font-bold text-xl my-2'>Returning Goods</h2>
-  // <p>You are responsible for the cost and risk of returning the Goods to Us. You should send the Goods at the following address:</p>
-  // <p>6 switchback rd, 37 Accra</p>
-  // <p>We cannot be held responsible for Goods damaged or lost in return shipment. Therefore, We recommend an insured and trackable mail service. We are unable to issue a refund without actual receipt of the Goods or proof of received return delivery.</p>
-  // <h2 className='font-bold text-xl my-2'>Gifts</h2>
-  // <p>If the Goods were marked as a gift when purchased and then shipped directly to you, You'll receive a gift credit for the value of your return. Once the returned product is received, a gift certificate will be mailed to You.</p>
-  // <p>If the Goods weren't marked as a gift when purchased, or the gift giver had the Order shipped to themselves to give it to You later, We will send the refund to the gift giver.</p>
-  // <h3 className='font-bold my-2'>Contact Us</h3>
-  // <p>If you have any questions about our Returns and Refunds Policy, please contact us:</p>
-  // <ul className='font-bold'>
-  // <li>By email: info@emartgh.com</li>
-  // </ul>
-  //     </div>
-  //   )
+const ReturnsPage = () => {
+  return (
+    <Container>
+      <div className='max-w-3xl mx-auto py-12 md:py-20'>
+        <h1 className='font-bold text-3xl text-center mb-2'>
+          Returns & Exchanges
+        </h1>
+        <p className='text-center text-slate-400 text-sm mb-10'>
+          Last updated: July 1, 2026
+        </p>
+
+        <div className='flex flex-col gap-8 text-slate-600 text-sm leading-relaxed'>
+          <p>
+            At Dash, every piece is crafted with care and pride. If something
+            isn't right with your order, we're here to make it right. Please
+            read our returns policy below.
+          </p>
+
+          <section>
+            <h2 className='text-lg font-semibold text-slate-800 mb-3'>
+              Return Window
+            </h2>
+            <p>
+              You may return or exchange eligible items within{' '}
+              <strong>7 days</strong> of receiving your order. After 7 days, we
+              are unable to accept returns.
+            </p>
+          </section>
+
+          <section>
+            <h2 className='text-lg font-semibold text-slate-800 mb-3'>
+              Eligible Items for Return
+            </h2>
+            <p className='mb-3'>
+              To qualify for a return, your item must meet the following
+              conditions:
+            </p>
+            <ul className='flex flex-col gap-2 pl-4'>
+              {[
+                'Purchased within the last 7 days',
+                'Unworn, unwashed, and unaltered',
+                'In its original packaging with all tags attached',
+                'Accompanied by proof of purchase (order confirmation)',
+              ].map((item) => (
+                <li key={item} className='flex items-start gap-2'>
+                  <span className='w-1.5 h-1.5 rounded-full bg-stone-400 mt-1.5 flex-shrink-0' />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section>
+            <h2 className='text-lg font-semibold text-slate-800 mb-3'>
+              Non-Returnable Items
+            </h2>
+            <p className='mb-3'>The following items cannot be returned:</p>
+            <ul className='flex flex-col gap-2 pl-4'>
+              {[
+                'Custom-made or personalised dresses',
+                'Sale or discounted items',
+                'Items that have been worn, washed, or altered',
+                'Items returned after the 7-day window',
+              ].map((item) => (
+                <li key={item} className='flex items-start gap-2'>
+                  <span className='w-1.5 h-1.5 rounded-full bg-stone-400 mt-1.5 flex-shrink-0' />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section>
+            <h2 className='text-lg font-semibold text-slate-800 mb-3'>
+              Exchanges
+            </h2>
+            <p>
+              We're happy to exchange your item for a different size or colour
+              where available. Simply contact us within 7 days and we'll arrange
+              the swap. If the replacement item is a different price, you'll be
+              charged or refunded the difference.
+            </p>
+          </section>
+
+          <section>
+            <h2 className='text-lg font-semibold text-slate-800 mb-3'>
+              How to Return
+            </h2>
+            <ol className='flex flex-col gap-3 pl-4 list-decimal list-inside'>
+              <li>
+                Contact us via email or WhatsApp with your order number and
+                reason for return.
+              </li>
+              <li>
+                We'll confirm whether your item is eligible and provide return
+                instructions.
+              </li>
+              <li>
+                Ship the item to our address:{' '}
+                <strong>Achimota Kingsby, Accra Ghana</strong>.
+              </li>
+              <li>
+                Once received and inspected, we'll process your refund or
+                exchange within 3–5 business days.
+              </li>
+            </ol>
+            <p className='mt-3'>
+              Please note: return shipping costs are the responsibility of the
+              customer. We recommend using a trackable delivery service.
+            </p>
+          </section>
+
+          <section>
+            <h2 className='text-lg font-semibold text-slate-800 mb-3'>
+              Refunds
+            </h2>
+            <p>
+              Approved refunds will be processed using the same payment method
+              used for the original purchase. Please allow up to 7 business days
+              for the amount to reflect in your account.
+            </p>
+          </section>
+
+          <section className='bg-stone-50 rounded-2xl p-6'>
+            <h2 className='text-lg font-semibold text-slate-800 mb-2'>
+              Questions?
+            </h2>
+            <p className='mb-2'>
+              We're always happy to help. Reach out to our team:
+            </p>
+            <div className='flex flex-col gap-1'>
+              <a
+                href='mailto:hello@dashfashionghana.com'
+                className='text-teal-600 hover:underline font-medium'
+              >
+                hello@dashfashionghana.com
+              </a>
+              <a
+                href='https://wa.me/233204497603'
+                className='text-teal-600 hover:underline font-medium'
+              >
+                WhatsApp: 0204 497 603
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </Container>
+  );
 };
 
-export default page;
+export default ReturnsPage;

@@ -1,8 +1,8 @@
-import AdminNav from "../components/Admin/AdminNav";
+import AdminNav from '../components/Admin/AdminNav';
 
 export const metadata = {
-  title: "Emart Admin",
-  description: "Emart Admin Dashboard",
+  title: 'Dash Admin',
+  description: 'Dash Admin Dashboard',
 };
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {

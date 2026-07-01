@@ -230,7 +230,7 @@ const ImageGallery = ({
       <div className='flex flex-col gap-3'>
         {/* Main image */}
         <div
-          className='relative w-full overflow-hidden bg-zinc-50 cursor-zoom-in'
+          className='relative w-full overflow-hidden bg-zinc-50 cursor-zoom-in rounded-xl'
           style={{ aspectRatio: '2 / 3' }}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}

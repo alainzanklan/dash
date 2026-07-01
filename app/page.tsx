@@ -24,7 +24,7 @@ const sections = [
     title: 'Top Selling',
     subtitle: 'Most loved by our customers',
     category: null,
-    limit: 22,
+    limit: 30,
   },
   // {
   //   title: 'Casuals',

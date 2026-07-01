@@ -66,20 +66,23 @@ const Footer = () => {
               <h3 className='text-xs font-semibold uppercase tracking-wider text-zinc-400 mb-1'>
                 Shop
               </h3>
-              <Link href='/?category=Dresses' className={footerLinkClass}>
-                Dresses
+              <Link href='/?category=milestones' className={footerLinkClass}>
+                Milestones
               </Link>
-              <Link href='/?category=Tops' className={footerLinkClass}>
-                Tops
+              <Link href='/?category=social-events' className={footerLinkClass}>
+                Social Events
               </Link>
-              <Link href='/?category=Bottoms' className={footerLinkClass}>
-                Bottoms
+              <Link href='/?category=casuals' className={footerLinkClass}>
+                Casuals
               </Link>
-              <Link href='/?category=Accessories' className={footerLinkClass}>
+              <Link href='/?category=corporates' className={footerLinkClass}>
+                Corporates
+              </Link>
+              <Link
+                href='/?category=daily-accessories'
+                className={footerLinkClass}
+              >
                 Accessories
-              </Link>
-              <Link href='/?category=New' className={footerLinkClass}>
-                New Arrivals
               </Link>
             </div>
 
@@ -112,14 +115,14 @@ const Footer = () => {
                 className='flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-900 transition-colors'
               >
                 <MdEmail size={16} className='text-zinc-400' />
-                hello@dashfashion.com
+                hello@dashfashionghana.com
               </a>
               <a
                 href='tel:+233240000000'
                 className='flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-900 transition-colors'
               >
                 <MdPhone size={16} className='text-zinc-400' />
-                +233 24 000 0000
+                +233 20 449 7603
               </a>
             </div>
           </div>
@@ -131,9 +134,7 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Dash Fashion Ghana. All rights
             reserved.
           </p>
-          <p className='text-xs text-zinc-400'>
-            Crafted with care in Accra, Ghana
-          </p>
+          <p className='text-xs text-zinc-400'>Developed by Webcom</p>
         </div>
       </Container>
     </footer>
