@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 import RelatedProductCard from '@/app/components/products/RelatedProductCard';
+import ProductCard from '@/app/components/products/ProductCard';
 
 interface SliderProps {
   products: any[];
@@ -51,7 +52,7 @@ function ProductSlider({ products, category }: SliderProps) {
       >
         {products.map((product) => (
           <div key={product.id} className='flex-shrink-0 w-40 sm:w-48'>
-            <RelatedProductCard data={product} />
+            <ProductCard data={product} />
           </div>
         ))}
       </div>

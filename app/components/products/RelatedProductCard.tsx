@@ -26,7 +26,6 @@ const RelatedProductCard: React.FC<ProductCardProps> = ({ data }) => {
     border-slate-200
     bg-slate-50
     rounded-sm
-    p-2
     transition
     hover:scale-105
     text-center
@@ -38,21 +37,36 @@ const RelatedProductCard: React.FC<ProductCardProps> = ({ data }) => {
          items-
          w-full 
          gap-1'
+        rounded-xl
       >
-        <div className='aspect-square overflow-hidden relative w-full'>
+        {/* Image — tall portrait, fills card edge to edge */}
+        <div className='aspect-[2/3] overflow-hidden relative w-full bg-zinc-100'>
           <Image
             fill
             src={data.images[0].image}
             alt={data.name}
-            className='w-full h-full object-contain'
+            sizes='(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'
+            className='object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]'
           />
+          {!data.inStock && (
+            <div className='absolute inset-0 bg-white/60 flex items-end justify-center pb-4'>
+              <span className='text-[11px] font-medium text-zinc-600 uppercase tracking-widest'>
+                Sold Out
+              </span>
+            </div>
+          )}
         </div>
-        <div className='mt-4'> {truncateText(data.name)}</div>
+        <div className='pt-2.5 pb-1 px-0.5 flex flex-col gap-0.5'>
+          <p className='text-sm text-zinc-800 leading-snug line-clamp-2'>
+            {truncateText(data.name)}
+          </p>
+          <p className='text-sm font-medium text-zinc-900 mt-0.5'>
+            {formatPrice(data.price)}
+          </p>
+        </div>
         <div>
           <Rating value={productRating} readOnly />
         </div>
-
-        <div className='font-semibold'>{formatPrice(data.price)}</div>
       </div>
     </div>
   );

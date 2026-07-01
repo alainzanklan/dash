@@ -1,11 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { truncateText } from '@/utils/TruncateText';
 import { formatPrice } from '@/utils/formatPrice';
-import { Rating } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { truncateText } from '@/utils/TruncateText';
 
 interface ProductCardProps {
   data: any;
@@ -13,64 +11,38 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const productRating =
-    data.reviews.length > 0
-      ? data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) /
-        data.reviews.length
-      : 0;
 
   return (
     <div
       onClick={() => router.push(`/product/${data.id}`)}
       className='group col-span-1 cursor-pointer'
     >
-      <div className='flex flex-col w-full gap-2.5'>
-        {/* Image — taller portrait ratio, no border/padding, fills the card */}
-        <div className='aspect-[3/4] overflow-hidden relative w-full rounded-lg bg-slate-50'>
-          <Image
-            fill
-            src={data.images[0].image}
-            alt={data.name}
-            sizes='(max-width: 768px) 50vw, 25vw'
-            className='object-cover transition-transform duration-300 group-hover:scale-105'
-          />
-          {/* Out of stock overlay */}
-          {!data.inStock && (
-            <div className='absolute inset-0 bg-white/70 flex items-center justify-center'>
-              <span className='text-xs font-medium text-slate-500 uppercase tracking-wider'>
-                Sold Out
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Info — left aligned like fashion editorial cards */}
-        <div className='flex flex-col gap-0.5 px-0.5'>
-          <p className='text-sm text-slate-700 leading-snug line-clamp-1'>
-            {truncateText(data.name)}
-          </p>
-
-          {data.brand && (
-            <p className='text-xs text-slate-400 uppercase tracking-wide'>
-              {data.brand}
-            </p>
-          )}
-
-          <div className='flex items-center justify-between mt-1'>
-            <span className='text-sm font-semibold text-slate-800'>
-              {formatPrice(data.price)}
+      {/* Image — tall portrait, fills card edge to edge */}
+      <div className='aspect-[2/3] overflow-hidden relative w-full bg-zinc-100 rounded-xl'>
+        <Image
+          fill
+          src={data.images[0].image}
+          alt={data.name}
+          sizes='(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'
+          className='object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]'
+        />
+        {!data.inStock && (
+          <div className='absolute inset-0 bg-white/60 flex items-end justify-center pb-4'>
+            <span className='text-[11px] font-medium text-zinc-600 uppercase tracking-widest'>
+              Sold Out
             </span>
-            {mounted && productRating > 0 && (
-              <Rating value={productRating} readOnly size='small' />
-            )}
           </div>
-        </div>
+        )}
+      </div>
+
+      {/* Info */}
+      <div className='pt-2.5 pb-1 px-0.5 flex flex-col gap-0.5'>
+        <p className='text-sm text-zinc-800 leading-snug line-clamp-2'>
+          {truncateText(data.name)}
+        </p>
+        <p className='text-sm font-medium text-zinc-900 mt-0.5'>
+          {formatPrice(data.price)}
+        </p>
       </div>
     </div>
   );
