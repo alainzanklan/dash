@@ -40,7 +40,7 @@ const Category: React.FC<CategoryProps> = ({ label, image, selected }) => {
   return (
     <button
       onClick={handleClick}
-      className='flex flex-col items-center gap-2 flex-shrink-0 cursor-pointer group'
+      className='flex flex-col flex-1 items-center gap-2 flex-shrink-0 cursor-pointer group'
     >
       {/* Square image tile — SHEIN-style with soft rounded corners */}
       <div

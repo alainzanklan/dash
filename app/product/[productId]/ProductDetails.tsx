@@ -13,7 +13,7 @@ import {
   MouseEvent as RMouseEvent,
   TouchEvent as RTouchEvent,
 } from 'react';
-import { CiShoppingCart } from 'react-icons/ci';
+import { TbShoppingBag } from 'react-icons/tb';
 import {
   MdCheckCircle,
   MdExpandMore,
@@ -530,7 +530,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                   <Button
                     label='Add to bag'
                     onClick={() => handleAddProductToCart(cartProduct)}
-                    icon={CiShoppingCart}
+                    icon={TbShoppingBag}
                   />
                 </div>
               </div>
@@ -544,7 +544,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 <Button
                   label='Add to bag'
                   onClick={() => handleAddProductToCart(cartProduct)}
-                  icon={CiShoppingCart}
+                  icon={TbShoppingBag}
                 />
               </div>
             </>

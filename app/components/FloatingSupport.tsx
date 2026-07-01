@@ -5,9 +5,10 @@ import { IoClose } from 'react-icons/io5';
 import { FaWhatsapp, FaPhone } from 'react-icons/fa';
 
 // ── Config — update these ─────────────────────────────────────────────────────
-const WHATSAPP_NUMBER = '233245022140'; // international format, no + or spaces
-const PHONE_NUMBER = '+233245022140';
-const WHATSAPP_MESSAGE = 'Hello! I need help with my order on Emart GH.';
+const WHATSAPP_NUMBER = '233244484307'; // international format, no + or spaces
+const PHONE_NUMBER = '+233244484307';
+const WHATSAPP_MESSAGE =
+  'Hello! I need help with my order on Dash Fashion Ghana.';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const FloatingSupport = () => {
@@ -97,7 +98,7 @@ const FloatingSupport = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '12px',
-              background: '#14b8a6',
+              background: '#09090b',
               color: 'white',
               borderRadius: '12px',
               padding: '12px 14px',
@@ -125,7 +126,7 @@ const FloatingSupport = () => {
           <p
             style={{
               fontSize: '11px',
-              color: '#94a3b8',
+              color: '#fafafa',
               textAlign: 'center',
               margin: 0,
             }}
