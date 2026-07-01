@@ -16,7 +16,7 @@ const Categories = () => {
   return (
     <div className='bg-white border-b border-zinc-100'>
       <Container>
-        <div className=' py-5 flex items-start md:justify-between gap-5 sm:gap-7 overflow-x-auto scrollbar-hide'>
+        <div className=' py-5 flex items-start justify-between gap-5 sm:gap-7 overflow-x-auto scrollbar-hide'>
           {categories.map((item) => (
             <Category
               key={item.label}
