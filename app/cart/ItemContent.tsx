@@ -64,7 +64,7 @@ const ItemContent: React.FC<ItemContentProps> = ({ item }) => {
           </div>
         </div>
       </div>
-      <div className='hidden sm:block col-span-2 justify-self-center'>
+      <div className='col-span-2 justify-self-center'>
         {formatPrice(item.price)}
       </div>
       <div className='justify-self-center'>

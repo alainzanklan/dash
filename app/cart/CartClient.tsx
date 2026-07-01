@@ -38,7 +38,7 @@ const CartClient: React.FC<CartClientProps> = ({ currentUser }) => {
 
       <div className='hidden sm:grid grid-cols-5 text-xs gap-4 pb-2 items-center mt-8 text-slate-500 uppercase tracking-wide'>
         <div className='col-span-2'>Product</div>
-        <div className='hidden sm:inline-block text-center'>Price</div>
+        <div className='sm:text-center'>Price</div>
         <div className='text-center'>Quantity</div>
         <div className='text-right'>Total</div>
       </div>
