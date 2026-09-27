@@ -2,6 +2,7 @@ export const revalidate = 0;
 
 import Container from './components/Container';
 import HomeBanner from './components/HomeBanner';
+import CategoryShowcase from './components/CategoryShowcase';
 import ProductCard from './components/products/ProductCard';
 import getProducts, { IProductParams } from '@/actions/getProducts';
 import NullData from './components/NullData';
@@ -9,84 +10,6 @@ import { Suspense } from 'react';
 
 interface HomeProps {
   searchParams: IProductParams;
-}
-
-// ─── Section config ───────────────────────────────────────────────────────────
-
-const sections = [
-  // {
-  //   title: 'Latest Products',
-  //   subtitle: 'Fresh arrivals just for you',
-  //   category: null,
-  //   limit: 6,
-  // },
-  {
-    title: 'Top Selling',
-    subtitle: 'Most loved by our customers',
-    category: null,
-    limit: 30,
-  },
-  // {
-  //   title: 'Casuals',
-  //   subtitle: 'Big screens, better experience',
-  //   category: 'Casual',
-  //   limit: 6,
-  // },
-  // {
-  //   title: 'Corporates',
-  //   subtitle: 'Keep it cool at home',
-  //   category: 'Corporate',
-  //   limit: 6,
-  // },
-  // {
-  //   title: 'Social Events',
-  //   subtitle: 'Carry in style',
-  //   category: 'Laptop Bag',
-  //   limit: 6,
-  // },
-];
-
-// ─── Section banner ───────────────────────────────────────────────────────────
-
-function SectionBanner({
-  title,
-  subtitle,
-}: {
-  title: string;
-  subtitle: string;
-}) {
-  return (
-    <div className='bg-gray-100 rounded-xl px-6 py-4 mb-4'>
-      <h2 className='text-black font-bold text-lg md:text-2xl'>{title}</h2>
-      <p className='text-gray-500 text-xs md:text-sm'>{subtitle}</p>
-    </div>
-  );
-}
-
-// ─── Product section ──────────────────────────────────────────────────────────
-
-async function ProductSection({
-  title,
-  subtitle,
-  category,
-  limit,
-}: (typeof sections)[number]) {
-  const products = await getProducts(category ? { category } : {});
-
-  if (products.length === 0) return null;
-
-  const displayed = products.slice(0, limit);
-
-  return (
-    <section className='mb-10'>
-      <SectionBanner title={title} subtitle={subtitle} />
-      <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2.5 md:gap-4'>
-        {displayed.map((product: any) => (
-          <ProductCard data={product} key={product.id} />
-        ))}
-      </div>
-    </section>
-  );
 }
 
 // ─── Skeleton ─────────────────────────────────────────────────────────────────
@@ -107,7 +30,7 @@ function SectionSkeleton({ limit }: { limit: number }) {
   );
 }
 
-// ─── Search results view ──────────────────────────────────────────────────────
+// ─── Search / category results view (clean product listing) ──────────────────
 
 async function SearchResults({
   searchParams,
@@ -137,26 +60,22 @@ export default async function Home({ searchParams }: HomeProps) {
   return (
     <div>
       <Container>
-        <Suspense fallback={null}>
-          <HomeBanner />
-        </Suspense>
+        {/* Hero only on the true homepage — hidden for category/search/"All" views */}
+        {!isSearching && (
+          <Suspense fallback={null}>
+            <HomeBanner />
+          </Suspense>
+        )}
 
-        <div className='mt-6'>
+        <div className='mt-6' id='collections'>
           {isSearching ? (
-            // User clicked a category or searched — show filtered results only
+            // Category, "All", or search view — clean product listing only
             <Suspense fallback={<SectionSkeleton limit={6} />}>
               <SearchResults searchParams={searchParams} />
             </Suspense>
           ) : (
-            // Default homepage — show all sections
-            sections.map((section) => (
-              <Suspense
-                key={section.title}
-                fallback={<SectionSkeleton limit={section.limit} />}
-              >
-                <ProductSection {...section} />
-              </Suspense>
-            ))
+            // Default homepage — visual storefront: category banners instead of a raw product grid
+            <CategoryShowcase />
           )}
         </div>
       </Container>

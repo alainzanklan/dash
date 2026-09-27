@@ -22,6 +22,7 @@ import WysiwygEditor from '@/app/components/WysiwygEditor';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { ImageType, UploadedImageType } from '@/types/product';
 import PartnerSelect from '@/app/components/partner/Partnerselect';
+import SizeInput from '@/app/components/products/SizeInput';
 
 const uploadToCloudinary = async (file: File): Promise<string> => {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
@@ -51,6 +52,8 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
     product.images ?? [],
   );
   const [isProductUpdated, setIsProductUpdated] = useState(false);
+  // Pre-fill sizes from existing product
+  const [sizes, setSizes] = useState<string[]>(product.sizes ?? []);
 
   const {
     register,
@@ -69,17 +72,16 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
       inStock: product.inStock,
       images: product.images ?? [],
       price: product.price,
-      partnerId: product.partnerId ?? null, // ← pre-fill existing partner
+      partnerId: product.partnerId ?? null,
     },
   });
 
   const category = watch('category');
-  const partnerId = watch('partnerId'); // ← watch so PartnerSelect shows current value
+  const partnerId = watch('partnerId');
 
   useEffect(() => {
     setCustomValue('images', [...existingImages, ...(images ?? [])]);
   }, [images, existingImages]);
-
   useEffect(() => {
     if (isProductUpdated) {
       reset();
@@ -88,17 +90,15 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
     }
   }, [isProductUpdated]);
 
-  const setCustomValue = (id: string, value: any) => {
+  const setCustomValue = (id: string, value: any) =>
     setValue(id, value, {
       shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,
     });
-  };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
-
     if (!data.category) {
       setIsLoading(false);
       return toast.error('Category is not selected');
@@ -107,20 +107,17 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
       setIsLoading(false);
       return toast.error('No selected image');
     }
-
     let uploadedImages: UploadedImageType[] = [...existingImages];
-
     toast('Updating product, please wait...');
-
     try {
       if (images && images.length > 0) {
         for (const item of images) {
           if (item.image) {
-            const downloadURL = await uploadToCloudinary(item.image);
+            const url = await uploadToCloudinary(item.image);
             uploadedImages.push({
               color: item.color,
               colorCode: item.colorCode,
-              image: downloadURL,
+              image: url,
             });
           }
         }
@@ -139,7 +136,8 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
         inStock: data.inStock,
         price: parseFloat(data.price),
         images: uploadedImages,
-        partnerId: data.partnerId ?? null, // ← send partnerId to API
+        partnerId: data.partnerId ?? null,
+        sizes, // ← included
       })
       .then(() => {
         toast.success('Product updated');
@@ -154,18 +152,15 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
   const addImageToState = useCallback((value: ImageType) => {
     setImages((prev) => (!prev ? [value] : [...prev, value]));
   }, []);
-
   const removeImageFromState = useCallback((value: ImageType) => {
-    setImages((prev) => {
-      if (prev) return prev.filter((item) => item.color !== value.color);
-      return null;
-    });
+    setImages((prev) =>
+      prev ? prev.filter((item) => item.color !== value.color) : null,
+    );
   }, []);
 
   return (
     <>
       <Heading title='Edit Product' center />
-
       <Input
         id='name'
         label='Name'
@@ -191,13 +186,11 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
         errors={errors}
         required
       />
-
       <Controller
         name='description'
         control={control}
         render={({ field }) => <WysiwygEditor field={field} />}
       />
-
       <CustomCheckbox
         id='inStock'
         register={register}
@@ -223,13 +216,14 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
         </div>
       </div>
 
-      {/* PartnerSelect — value pre-filled from existing product.partnerId */}
       <PartnerSelect
         value={partnerId ?? null}
         onChange={(id) => setCustomValue('partnerId', id)}
       />
 
-      {/* Existing images preview */}
+      {/* ── Size input — pre-filled from existing product ──────────────────── */}
+      <SizeInput value={sizes} onChange={setSizes} />
+
       {existingImages.length > 0 && (
         <div className='w-full'>
           <div className='mb-2 font-semibold'>Current Images</div>
@@ -266,7 +260,6 @@ const EditProductForm = ({ product }: EditProductFormProps) => {
         </div>
       )}
 
-      {/* Add new color images */}
       <div className='w-full flex flex-col flex-wrap gap-4'>
         <div>
           <div className='font-bold'>Add new color images</div>

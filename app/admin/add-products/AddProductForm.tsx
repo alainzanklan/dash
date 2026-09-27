@@ -22,6 +22,7 @@ import WysiwygEditor from '@/app/components/WysiwygEditor';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { ImageType, UploadedImageType } from '@/types/product';
 import PartnerSelect from '@/app/components/partner/Partnerselect';
+import SizeInput from '@/app/components/products/SizeInput';
 
 const AddProductForm = () => {
   const router = useRouter();
@@ -29,6 +30,7 @@ const AddProductForm = () => {
   const [images, setImages] = useState<ImageType[] | null>();
   const [isProductCreated, setIsProductCreated] = useState(false);
   const [additionalFiles, setAdditionalFiles] = useState<File[]>([]);
+  const [sizes, setSizes] = useState<string[]>([]);
 
   const {
     register,
@@ -47,23 +49,23 @@ const AddProductForm = () => {
       inStock: false,
       images: [],
       price: '',
-      partnerId: null, // ← store the id, not the whole object
+      partnerId: null,
+      sizes: [],
     },
   });
 
-  // Watch partnerId so PartnerSelect shows the selected value
   const partnerId = watch('partnerId');
   const category = watch('category');
 
   useEffect(() => {
     setCustomValue('images', images);
   }, [images]);
-
   useEffect(() => {
     if (isProductCreated) {
       reset();
       setImages(null);
       setAdditionalFiles([]);
+      setSizes([]);
       setIsProductCreated(false);
     }
   }, [isProductCreated]);
@@ -87,7 +89,6 @@ const AddProductForm = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     let uploadedImages: UploadedImageType[] = [];
-
     if (!data.category) {
       setIsLoading(false);
       return toast.error('Category is not selected');
@@ -96,39 +97,34 @@ const AddProductForm = () => {
       setIsLoading(false);
       return toast.error('No selected image');
     }
-
     toast('Creating product, please wait...');
-
     try {
       for (const item of data.images) {
         if (item.image) {
-          const downloadURL = await uploadToCloudinary(item.image);
-          uploadedImages.push({ ...item, image: downloadURL });
+          const url = await uploadToCloudinary(item.image);
+          uploadedImages.push({ ...item, image: url });
         }
       }
     } catch {
       setIsLoading(false);
       return toast.error('Error uploading images to Cloudinary');
     }
-
     const uploadedAdditional: string[] = await Promise.all(
       additionalFiles.map((file) => uploadToCloudinary(file)),
     );
-
-    const productData = {
-      name: data.name,
-      description: data.description,
-      brand: data.brand,
-      category: data.category,
-      inStock: data.inStock,
-      price: parseFloat(data.price),
-      images: uploadedImages,
-      additionalImages: uploadedAdditional,
-      partnerId: data.partnerId ?? null, // ← send partnerId to API
-    };
-
     axios
-      .post('/api/product', productData)
+      .post('/api/product', {
+        name: data.name,
+        description: data.description,
+        brand: data.brand,
+        category: data.category,
+        inStock: data.inStock,
+        price: parseFloat(data.price),
+        images: uploadedImages,
+        additionalImages: uploadedAdditional,
+        partnerId: data.partnerId ?? null,
+        sizes, // ← included
+      })
       .then(() => {
         toast.success('Product created');
         setIsProductCreated(true);
@@ -140,23 +136,19 @@ const AddProductForm = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const setCustomValue = (id: string, value: any) => {
+  const setCustomValue = (id: string, value: any) =>
     setValue(id, value, {
       shouldValidate: true,
       shouldDirty: true,
       shouldTouch: true,
     });
-  };
-
   const addImageToState = useCallback((value: ImageType) => {
     setImages((prev) => (!prev ? [value] : [...prev, value]));
   }, []);
-
   const removeImageFromState = useCallback((value: ImageType) => {
-    setImages((prev) => {
-      if (prev) return prev.filter((item) => item.color !== value.color);
-      return null;
-    });
+    setImages((prev) =>
+      prev ? prev.filter((item) => item.color !== value.color) : null,
+    );
   }, []);
 
   return (
@@ -217,11 +209,13 @@ const AddProductForm = () => {
         </div>
       </div>
 
-      {/* PartnerSelect — value + onChange both wired */}
       <PartnerSelect
         value={partnerId ?? null}
         onChange={(id) => setCustomValue('partnerId', id)}
       />
+
+      {/* ── Size input ─────────────────────────────────────────────────────── */}
+      <SizeInput value={sizes} onChange={setSizes} />
 
       <div className='w-full flex flex-col flex-wrap gap-4'>
         <div>
@@ -245,7 +239,6 @@ const AddProductForm = () => {
         </div>
       </div>
 
-      {/* Additional images */}
       <div className='w-full flex flex-col gap-3'>
         <div>
           <div className='font-bold'>Additional Images (optional)</div>

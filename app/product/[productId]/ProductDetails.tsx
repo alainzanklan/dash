@@ -22,6 +22,7 @@ import {
 } from 'react-icons/md';
 import { TbTruckDelivery, TbShield, TbStar } from 'react-icons/tb';
 import Link from 'next/link';
+import SizeSelector from '@/app/components/products/SizeSelector';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -42,6 +43,7 @@ export type CartProductType = {
   price: number;
   partnerId?: string | null;
   partnerName?: string | null;
+  selectedSize?: string | null;
 };
 
 interface ProductDetailsProps {
@@ -63,8 +65,6 @@ const badges = [
 const Divider = () => <hr className='border-t border-zinc-100 my-4' />;
 
 // ─── Zoom image ───────────────────────────────────────────────────────────────
-// Full-screen immersive zoom: click to enter, drag to pan, click again to exit.
-// Zero visible UI — all interaction is implicit.
 
 const ZoomImage = ({
   src,
@@ -79,28 +79,22 @@ const ZoomImage = ({
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const dragging = useRef(false);
   const startDrag = useRef({ mx: 0, my: 0, px: 0, py: 0 });
-
   const SCALE_STEP = 0.8;
   const MAX_SCALE = 4;
-  const MIN_SCALE = 1;
-
   const clamp = (v: number, max: number) => Math.max(-max, Math.min(max, v));
-
   const maxPan = (s: number) => ((s - 1) / s) * 50;
 
   const handleClick = (e: RMouseEvent) => {
-    // If not dragging, cycle zoom levels
     if (dragging.current) return;
     if (scale < MAX_SCALE) {
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       const ox = ((e.clientX - rect.left) / rect.width - 0.5) * -100;
       const oy = ((e.clientY - rect.top) / rect.height - 0.5) * -100;
       const ns = Math.min(scale + SCALE_STEP, MAX_SCALE);
-      const mp = maxPan(ns);
       setScale(ns);
-      setPos({ x: clamp(ox, mp), y: clamp(oy, mp) });
+      setPos({ x: clamp(ox, maxPan(ns)), y: clamp(oy, maxPan(ns)) });
     } else {
-      setScale(MIN_SCALE);
+      setScale(1);
       setPos({ x: 0, y: 0 });
     }
   };
@@ -161,15 +155,14 @@ const ZoomImage = ({
             userSelect: 'none',
           }}
         />
-        {/* Subtle close hint top-right */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             onClose();
           }}
-          className='absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors'
+          className='absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center'
         >
-          <span className='text-white text-lg leading-none'>×</span>
+          <span className='text-white text-lg'>×</span>
         </button>
       </div>
     </div>
@@ -201,12 +194,10 @@ const ImageGallery = ({
     setActiveIndex(idx);
     onSelect(items[idx]);
   };
-
   const onTouchStart = (e: RTouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
   };
-
   const onTouchEnd = (e: RTouchEvent) => {
     const dx = e.changedTouches[0].clientX - touchStartX.current;
     const dy = e.changedTouches[0].clientY - touchStartY.current;
@@ -214,7 +205,6 @@ const ImageGallery = ({
     if (dx < 0 && activeIndex < items.length - 1) goTo(activeIndex + 1);
     if (dx > 0 && activeIndex > 0) goTo(activeIndex - 1);
   };
-
   const currentItem = items[activeIndex];
 
   return (
@@ -226,11 +216,9 @@ const ImageGallery = ({
           onClose={() => setZoomSrc(null)}
         />
       )}
-
       <div className='flex flex-col gap-3'>
-        {/* Main image */}
         <div
-          className='relative w-full overflow-hidden bg-zinc-50 cursor-zoom-in rounded-xl'
+          className='relative w-full overflow-hidden bg-zinc-50 cursor-zoom-in'
           style={{ aspectRatio: '2 / 3' }}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
@@ -242,8 +230,6 @@ const ImageGallery = ({
             draggable={false}
             className='w-full h-full object-cover'
           />
-
-          {/* Mobile dot indicators */}
           {items.length > 1 && (
             <div className='absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 md:hidden'>
               {items.map((_, i) => (
@@ -254,18 +240,12 @@ const ImageGallery = ({
                     e.stopPropagation();
                     goTo(i);
                   }}
-                  className={`rounded-full transition-all ${
-                    i === activeIndex
-                      ? 'w-4 h-1.5 bg-white'
-                      : 'w-1.5 h-1.5 bg-white/50'
-                  }`}
+                  className={`rounded-full transition-all ${i === activeIndex ? 'w-4 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-white/50'}`}
                 />
               ))}
             </div>
           )}
         </div>
-
-        {/* Desktop thumbnail strip */}
         {items.length > 1 && (
           <div className='hidden md:flex gap-2 overflow-x-auto pb-1'>
             {items.map((item, i) => (
@@ -275,11 +255,7 @@ const ImageGallery = ({
                 onClick={() => goTo(i)}
                 title={item.label}
                 style={{ aspectRatio: '2 / 3' }}
-                className={`flex-shrink-0 w-20 overflow-hidden transition-all ${
-                  i === activeIndex
-                    ? 'ring-2 ring-zinc-900 ring-offset-1'
-                    : 'opacity-60 hover:opacity-100'
-                }`}
+                className={`flex-shrink-0 w-20 overflow-hidden transition-all ${i === activeIndex ? 'ring-2 ring-zinc-900 ring-offset-1' : 'opacity-60 hover:opacity-100'}`}
               >
                 <img
                   src={item.url}
@@ -302,7 +278,6 @@ const ExpandableDescription = ({ html }: { html: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const textLength = html.replace(/<[^>]*>/g, '').length;
   const shouldTruncate = textLength > 300;
-
   const handleToggle = () => {
     if (expanded && containerRef.current) {
       const top =
@@ -311,13 +286,10 @@ const ExpandableDescription = ({ html }: { html: string }) => {
     }
     setExpanded((prev) => !prev);
   };
-
   return (
     <div ref={containerRef}>
       <div
-        className={`rich-content text-zinc-500 text-sm leading-relaxed overflow-hidden transition-all duration-300 ${
-          !expanded && shouldTruncate ? 'max-h-32' : 'max-h-none'
-        }`}
+        className={`rich-content text-zinc-500 text-sm leading-relaxed overflow-hidden transition-all duration-300 ${!expanded && shouldTruncate ? 'max-h-32' : 'max-h-none'}`}
         style={
           !expanded && shouldTruncate
             ? {
@@ -357,6 +329,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const router = useRouter();
   const { handleAddProductToCart, cartProducts } = useCart();
   const [isProductInCart, setIsProductInCart] = useState(false);
+  const [sizeError, setSizeError] = useState(false);
+
+  const hasSizes = product.sizes && product.sizes.length > 0;
 
   const [cartProduct, setCartProduct] = useState<CartProductType>({
     id: product.id,
@@ -369,6 +344,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     price: product.price,
     partnerId: product.partner?.id ?? null,
     partnerName: product.partner?.name ?? null,
+    selectedSize: null,
   });
 
   const galleryItems: GalleryItem[] = [
@@ -386,9 +362,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [selectedUrl, setSelectedUrl] = useState(galleryItems[0]?.url ?? '');
 
   useEffect(() => {
-    if (cartProducts) {
+    if (cartProducts)
       setIsProductInCart(cartProducts.some((item) => item.id === product.id));
-    }
   }, [cartProducts, product.id]);
 
   const productRating =
@@ -401,14 +376,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   const handleGallerySelect = useCallback((item: GalleryItem) => {
     setSelectedUrl(item.url);
-    if (item.colorData) {
+    if (item.colorData)
       setCartProduct((prev) => ({ ...prev, selectedImg: item.colorData! }));
-    }
   }, []);
 
   const handleColorSelect = useCallback((img: SelectedImgType) => {
     setCartProduct((prev) => ({ ...prev, selectedImg: img }));
     setSelectedUrl(img.image);
+  }, []);
+
+  const handleSizeSelect = useCallback((size: string) => {
+    setCartProduct((prev) => ({ ...prev, selectedSize: size }));
+    setSizeError(false);
   }, []);
 
   const handleQtyIncrease = useCallback(() => {
@@ -422,10 +401,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     });
   }, []);
 
+  const handleAddToCart = useCallback(() => {
+    // If product has sizes, require one to be selected
+    if (hasSizes && !cartProduct.selectedSize) {
+      setSizeError(true);
+      return;
+    }
+    handleAddProductToCart(cartProduct);
+  }, [cartProduct, hasSizes, handleAddProductToCart]);
+
   return (
     <div className='max-w-7xl mx-auto px-3 py-4 md:py-8'>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 lg:gap-20'>
-        {/* Gallery — full bleed on mobile */}
+        {/* Gallery */}
         <div className='-mx-3 md:mx-0'>
           <ImageGallery
             items={galleryItems}
@@ -436,17 +424,14 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
         {/* Details */}
         <div className='flex flex-col gap-4 md:pt-4'>
-          {/* Category */}
           <p className='text-xs uppercase tracking-widest text-zinc-400'>
             {product.category}
           </p>
 
-          {/* Name */}
           <h1 className='text-2xl sm:text-3xl font-light text-zinc-900 leading-snug'>
             {product.name}
           </h1>
 
-          {/* Sold by */}
           {product.partner && (
             <div className='flex items-center gap-1.5 text-sm text-zinc-400'>
               <MdStore size={14} />
@@ -460,7 +445,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             </div>
           )}
 
-          {/* Price */}
           <div className='flex items-center gap-3 mt-1'>
             <span className='text-xl font-medium text-zinc-900'>
               {formatPrice(product.price)}
@@ -502,6 +486,22 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             </div>
           )}
 
+          {/* ── Size selector ─────────────────────────────────────────────── */}
+          {hasSizes && (
+            <div className='flex flex-col gap-1'>
+              <SizeSelector
+                sizes={product.sizes}
+                selectedSize={cartProduct.selectedSize ?? null}
+                onSelect={handleSizeSelect}
+              />
+              {sizeError && (
+                <p className='text-xs text-rose-500 mt-1'>
+                  Please select a size before adding to bag
+                </p>
+              )}
+            </div>
+          )}
+
           {/* Cart actions */}
           {isProductInCart ? (
             <div className='flex flex-col gap-3'>
@@ -517,7 +517,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             </div>
           ) : (
             <>
-              {/* Mobile */}
               <div className='flex md:hidden items-center gap-3'>
                 <div className='flex-shrink-0'>
                   <SetQuantity
@@ -529,12 +528,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 <div className='flex-1'>
                   <Button
                     label='Add to bag'
-                    onClick={() => handleAddProductToCart(cartProduct)}
+                    onClick={handleAddToCart}
                     icon={TbShoppingBag}
                   />
                 </div>
               </div>
-              {/* Desktop */}
               <div className='hidden md:flex flex-col gap-3'>
                 <SetQuantity
                   cartProduct={cartProduct}
@@ -543,7 +541,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 />
                 <Button
                   label='Add to bag'
-                  onClick={() => handleAddProductToCart(cartProduct)}
+                  onClick={handleAddToCart}
                   icon={TbShoppingBag}
                 />
               </div>
@@ -552,7 +550,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
           <Divider />
 
-          {/* Trust badges — minimal, no background */}
           <div className='flex flex-col gap-2'>
             {badges.map(({ icon: Icon, label }) => (
               <div
@@ -565,7 +562,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             ))}
           </div>
 
-          {/* Description */}
           {product.description && (
             <div className='mt-2'>
               <Divider />

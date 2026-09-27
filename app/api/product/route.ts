@@ -22,6 +22,7 @@ export async function POST(request: Request) {
     images,
     additionalImages,
     partnerId,
+    sizes,
   } = body;
 
   const product = await prisma.product.create({
@@ -32,6 +33,7 @@ export async function POST(request: Request) {
       category,
       inStock,
       images,
+      sizes,
       price: parseFloat(price),
       additionalImages,
       partnerId: partnerId ?? null,
@@ -54,7 +56,7 @@ export async function PUT(request: Request) {
   const product = await prisma.product.update({
     where: { id: id },
     data: { inStock },
-    include: { partner: true },
+    include: { partner: true, sizes: true },
   });
 
   return NextResponse.json(product);

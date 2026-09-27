@@ -1509,6 +1509,7 @@ export namespace Prisma {
     selectedImg?: boolean | ImageDefaultArgs<ExtArgs>
     quantity?: boolean
     price?: boolean
+    selectedSize?: boolean
   }, ExtArgs["result"]["cartProductType"]>
 
 
@@ -1520,6 +1521,7 @@ export namespace Prisma {
     brand?: boolean
     quantity?: boolean
     price?: boolean
+    selectedSize?: boolean
   }
 
   export type CartProductTypeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1535,6 +1537,7 @@ export namespace Prisma {
       brand: string
       quantity: number
       price: number
+      selectedSize: string | null
     }
     composites: {
       selectedImg: Prisma.$ImagePayload
@@ -1558,6 +1561,7 @@ export namespace Prisma {
     readonly brand: FieldRef<"CartProductType", 'String'>
     readonly quantity: FieldRef<"CartProductType", 'Int'>
     readonly price: FieldRef<"CartProductType", 'Float'>
+    readonly selectedSize: FieldRef<"CartProductType", 'String'>
   }
     
 
@@ -3873,6 +3877,7 @@ export namespace Prisma {
     category: number
     inStock: number
     additionalImages: number
+    sizes: number
     partnerId: number
     _all: number
   }
@@ -3917,6 +3922,7 @@ export namespace Prisma {
     category?: true
     inStock?: true
     additionalImages?: true
+    sizes?: true
     partnerId?: true
     _all?: true
   }
@@ -4016,6 +4022,7 @@ export namespace Prisma {
     category: string
     inStock: boolean
     additionalImages: string[]
+    sizes: string[]
     partnerId: string | null
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
@@ -4048,6 +4055,7 @@ export namespace Prisma {
     inStock?: boolean
     images?: boolean | ImageDefaultArgs<ExtArgs>
     additionalImages?: boolean
+    sizes?: boolean
     partnerId?: boolean
     reviews?: boolean | Product$reviewsArgs<ExtArgs>
     partner?: boolean | Product$partnerArgs<ExtArgs>
@@ -4064,6 +4072,7 @@ export namespace Prisma {
     category?: boolean
     inStock?: boolean
     additionalImages?: boolean
+    sizes?: boolean
     partnerId?: boolean
   }
 
@@ -4088,6 +4097,7 @@ export namespace Prisma {
       category: string
       inStock: boolean
       additionalImages: string[]
+      sizes: string[]
       partnerId: string | null
     }, ExtArgs["result"]["product"]>
     composites: {
@@ -4493,6 +4503,7 @@ export namespace Prisma {
     readonly category: FieldRef<"Product", 'String'>
     readonly inStock: FieldRef<"Product", 'Boolean'>
     readonly additionalImages: FieldRef<"Product", 'String[]'>
+    readonly sizes: FieldRef<"Product", 'String[]'>
     readonly partnerId: FieldRef<"Product", 'String'>
   }
     
@@ -8917,6 +8928,7 @@ export namespace Prisma {
     category: 'category',
     inStock: 'inStock',
     additionalImages: 'additionalImages',
+    sizes: 'sizes',
     partnerId: 'partnerId'
   };
 
@@ -9275,6 +9287,7 @@ export namespace Prisma {
     inStock?: BoolFilter<"Product"> | boolean
     images?: ImageCompositeListFilter | ImageObjectEqualityInput[]
     additionalImages?: StringNullableListFilter<"Product">
+    sizes?: StringNullableListFilter<"Product">
     partnerId?: StringNullableFilter<"Product"> | string | null
     reviews?: ReviewListRelationFilter
     partner?: XOR<PartnerNullableRelationFilter, PartnerWhereInput> | null
@@ -9290,6 +9303,7 @@ export namespace Prisma {
     inStock?: SortOrder
     images?: ImageOrderByCompositeAggregateInput
     additionalImages?: SortOrder
+    sizes?: SortOrder
     partnerId?: SortOrder
     reviews?: ReviewOrderByRelationAggregateInput
     partner?: PartnerOrderByWithRelationInput
@@ -9308,6 +9322,7 @@ export namespace Prisma {
     inStock?: BoolFilter<"Product"> | boolean
     images?: ImageCompositeListFilter | ImageObjectEqualityInput[]
     additionalImages?: StringNullableListFilter<"Product">
+    sizes?: StringNullableListFilter<"Product">
     partnerId?: StringNullableFilter<"Product"> | string | null
     reviews?: ReviewListRelationFilter
     partner?: XOR<PartnerNullableRelationFilter, PartnerWhereInput> | null
@@ -9322,6 +9337,7 @@ export namespace Prisma {
     category?: SortOrder
     inStock?: SortOrder
     additionalImages?: SortOrder
+    sizes?: SortOrder
     partnerId?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
@@ -9342,6 +9358,7 @@ export namespace Prisma {
     category?: StringWithAggregatesFilter<"Product"> | string
     inStock?: BoolWithAggregatesFilter<"Product"> | boolean
     additionalImages?: StringNullableListFilter<"Product">
+    sizes?: StringNullableListFilter<"Product">
     partnerId?: StringNullableWithAggregatesFilter<"Product"> | string | null
   }
 
@@ -9869,6 +9886,7 @@ export namespace Prisma {
     inStock: boolean
     images?: XOR<ImageListCreateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductCreateadditionalImagesInput | string[]
+    sizes?: ProductCreatesizesInput | string[]
     reviews?: ReviewCreateNestedManyWithoutProductInput
     partner?: PartnerCreateNestedOneWithoutProductsInput
   }
@@ -9883,6 +9901,7 @@ export namespace Prisma {
     inStock: boolean
     images?: XOR<ImageListCreateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductCreateadditionalImagesInput | string[]
+    sizes?: ProductCreatesizesInput | string[]
     partnerId?: string | null
     reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
   }
@@ -9896,6 +9915,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
     reviews?: ReviewUpdateManyWithoutProductNestedInput
     partner?: PartnerUpdateOneWithoutProductsNestedInput
   }
@@ -9909,6 +9929,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
     partnerId?: NullableStringFieldUpdateOperationsInput | string | null
     reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
   }
@@ -9923,6 +9944,7 @@ export namespace Prisma {
     inStock: boolean
     images?: XOR<ImageListCreateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductCreateadditionalImagesInput | string[]
+    sizes?: ProductCreatesizesInput | string[]
     partnerId?: string | null
   }
 
@@ -9935,6 +9957,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
   }
 
   export type ProductUncheckedUpdateManyInput = {
@@ -9946,6 +9969,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
     partnerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -10652,6 +10676,7 @@ export namespace Prisma {
     category?: SortOrder
     inStock?: SortOrder
     additionalImages?: SortOrder
+    sizes?: SortOrder
     partnerId?: SortOrder
   }
 
@@ -10794,6 +10819,7 @@ export namespace Prisma {
     selectedImg: ImageObjectEqualityInput
     quantity: number
     price: number
+    selectedSize?: string | null
   }
 
   export type AddressNullableCompositeFilter = {
@@ -11192,6 +11218,10 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type ProductCreatesizesInput = {
+    set: string[]
+  }
+
   export type ReviewCreateNestedManyWithoutProductInput = {
     create?: XOR<ReviewCreateWithoutProductInput, ReviewUncheckedCreateWithoutProductInput> | ReviewCreateWithoutProductInput[] | ReviewUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ReviewCreateOrConnectWithoutProductInput | ReviewCreateOrConnectWithoutProductInput[]
@@ -11232,6 +11262,11 @@ export namespace Prisma {
   }
 
   export type ProductUpdateadditionalImagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ProductUpdatesizesInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -11323,6 +11358,7 @@ export namespace Prisma {
     selectedImg: ImageCreateInput
     quantity: number
     price: number
+    selectedSize?: string | null
   }
 
   export type AddressNullableCreateEnvelopeInput = {
@@ -11684,6 +11720,7 @@ export namespace Prisma {
     selectedImg?: XOR<ImageCompositeFilter, ImageObjectEqualityInput>
     quantity?: IntFilter<"CartProductType"> | number
     price?: FloatFilter<"CartProductType"> | number
+    selectedSize?: StringNullableFilter<"CartProductType"> | string | null
   }
 
   export type AddressWhereInput = {
@@ -12161,6 +12198,7 @@ export namespace Prisma {
     inStock: boolean
     images?: XOR<ImageListCreateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductCreateadditionalImagesInput | string[]
+    sizes?: ProductCreatesizesInput | string[]
     partner?: PartnerCreateNestedOneWithoutProductsInput
   }
 
@@ -12174,6 +12212,7 @@ export namespace Prisma {
     inStock: boolean
     images?: XOR<ImageListCreateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductCreateadditionalImagesInput | string[]
+    sizes?: ProductCreatesizesInput | string[]
     partnerId?: string | null
   }
 
@@ -12237,6 +12276,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
     partner?: PartnerUpdateOneWithoutProductsNestedInput
   }
 
@@ -12249,6 +12289,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
     partnerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -12463,6 +12504,7 @@ export namespace Prisma {
     inStock: boolean
     images?: XOR<ImageListCreateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductCreateadditionalImagesInput | string[]
+    sizes?: ProductCreatesizesInput | string[]
     reviews?: ReviewCreateNestedManyWithoutProductInput
   }
 
@@ -12476,6 +12518,7 @@ export namespace Prisma {
     inStock: boolean
     images?: XOR<ImageListCreateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductCreateadditionalImagesInput | string[]
+    sizes?: ProductCreatesizesInput | string[]
     reviews?: ReviewUncheckedCreateNestedManyWithoutProductInput
   }
 
@@ -12516,6 +12559,7 @@ export namespace Prisma {
     category?: StringFilter<"Product"> | string
     inStock?: BoolFilter<"Product"> | boolean
     additionalImages?: StringNullableListFilter<"Product">
+    sizes?: StringNullableListFilter<"Product">
     partnerId?: StringNullableFilter<"Product"> | string | null
   }
 
@@ -12749,6 +12793,7 @@ export namespace Prisma {
     selectedImg?: XOR<ImageUpdateEnvelopeInput, ImageCreateInput>
     quantity?: IntFieldUpdateOperationsInput | number
     price?: FloatFieldUpdateOperationsInput | number
+    selectedSize?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AddressUpdateInput = {
@@ -12771,6 +12816,7 @@ export namespace Prisma {
     inStock: boolean
     images?: XOR<ImageListCreateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductCreateadditionalImagesInput | string[]
+    sizes?: ProductCreatesizesInput | string[]
   }
 
   export type ProductUpdateWithoutPartnerInput = {
@@ -12782,6 +12828,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
     reviews?: ReviewUpdateManyWithoutProductNestedInput
   }
 
@@ -12794,6 +12841,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
     reviews?: ReviewUncheckedUpdateManyWithoutProductNestedInput
   }
 
@@ -12806,6 +12854,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: XOR<ImageListUpdateEnvelopeInput, ImageCreateInput> | ImageCreateInput[]
     additionalImages?: ProductUpdateadditionalImagesInput | string[]
+    sizes?: ProductUpdatesizesInput | string[]
   }
 
   export type ImageUpdateEnvelopeInput = {
