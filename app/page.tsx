@@ -3,6 +3,7 @@ export const revalidate = 0;
 import Container from './components/Container';
 import HomeBanner from './components/HomeBanner';
 import CategoryShowcase from './components/CategoryShowcase';
+import NewsletterSection from './components/NewsletterSection';
 import ProductCard from './components/products/ProductCard';
 import getProducts, { IProductParams } from '@/actions/getProducts';
 import NullData from './components/NullData';
@@ -74,10 +75,13 @@ export default async function Home({ searchParams }: HomeProps) {
               <SearchResults searchParams={searchParams} />
             </Suspense>
           ) : (
-            // Default homepage — visual storefront: category banners instead of a raw product grid
+            // Default homepage — visual storefront
             <CategoryShowcase />
           )}
         </div>
+
+        {/* Newsletter — default homepage view only, not category/search listings */}
+        {!isSearching && <NewsletterSection />}
       </Container>
     </div>
   );
